@@ -36,25 +36,26 @@ Peripheral Examples
 
 Usage
 -----
-   git clone https://github.com/nabilt/STM32F4-Discovery-Firmware.git
-   cd STM32F4-Discovery_FW_V1.0.1/Project/IO_Toggle
-   make && make program
-   openocd -f ../../openocd_config/openocd.cfg -f ../../openocd_config/stm32f4x.cfg
+    git clone https://github.com/nabilt/STM32F4-Discovery-Firmware.git
+    cd STM32F4-Discovery_FW_V1.0.1/Project/IO_Toggle
+    make && make program
+    openocd -f ../../openocd_config/openocd.cfg -f ../../openocd_config/stm32f4x.cfg
 
 In another terminal
 
-   arm-none-eabi-gcc
-   (gdb) target extended localhost:3333
-   (gdb) # reset and halt the chip
-   (gdb) monitor halt
-   (gdb) # load symbol files
-   (gdb) file demo.elf
-   (gdb) # load demo.elf into RAM
-   (gdb) load demo.elf
-   Loading section .isr_vector, size 0x188 lma 0x8000000
-   Loading section .text, size 0xc5c lma 0x8000188
-   Loading section .data, size 0x38 lma 0x8000de4
-   Start address 0x8000d6c, load size 3612
-   Transfer rate: 6 KB/sec, 1204 bytes/write.
-   (gdb) run the program. hit Control-C to stop
-   (gdb) continue
+    arm-none-eabi-gcc
+    (gdb) target extended localhost:3333
+    (gdb) # reset and halt the chip
+    (gdb) monitor halt
+    (gdb) # load symbol files
+    (gdb) file demo.elf
+    (gdb) # load demo.elf into RAM
+    (gdb) load demo.elf
+    Loading section .isr_vector, size 0x188 lma 0x8000000
+    Loading section .text, size 0xc5c lma 0x8000188
+    Loading section .data, size 0x38 lma 0x8000de4
+    Start address 0x8000d6c, load size 3612
+    Transfer rate: 6 KB/sec, 1204 bytes/write.
+    (gdb) run the program. hit Control-C to stop
+    (gdb) continue
+ 
