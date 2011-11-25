@@ -1,19 +1,20 @@
-TARGET=demo
+TARGET=demo.hex
+EXECUTABLE=demo.elf
 
-CC=arm-elf-gcc
-LD=arm-elf-ld 
-#LD=arm-elf-gcc
-AR=arm-elf-ar
-AS=arm-elf-as
-CP=arm-elf-objcopy
-OD=arm-elf-objdump
+CC=arm-none-eabi-gcc
+LD=arm-none-eabi-ld 
+#LD=arm-none-eabi-gcc
+AR=arm-none-eabi-ar
+AS=arm-none-eabi-as
+CP=arm-none-eabi-objcopy
+OD=arm-none-eabi-objdump
 
 BIN=$(CP) -O ihex 
 
 DEFS = -DUSE_STDPERIPH_DRIVER -DSTM32F4XX -DMANGUSTA_DISCOVERY -DUSE_USB_OTG_FS -DHSE_VALUE=8000000
 
 MCU = cortex-m4
-MCFLAGS = -mcpu=$(MCU) -mthumb -mlittle-endian -mfpu=fpa -mfloat-abi=hard -mthumb-interwork
+MCFLAGS = -mcpu=$(MCU) -mthumb -mlittle-endian -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb-interwork
 STM32_INCLUDES = -I../../Utilities/STM32F4-Discovery \
 	-I../../Libraries/CMSIS/ST/STM32F4xx/Include/ \
 	-I../../Libraries/CMSIS/Include/ \
@@ -24,13 +25,9 @@ STM32_INCLUDES = -I../../Utilities/STM32F4-Discovery \
 
 OPTIMIZE       = -Os
 
-CFLAGS	= $(MCFLAGS) $(DEFS) -I./ $(STM32_INCLUDES) -c -fno-common -g -Wall $(OPTIMIZE) 
+CFLAGS	= $(MCFLAGS)  $(OPTIMIZE)  $(DEFS) -I./ -I./ $(STM32_INCLUDES)  -Wl,-T,stm32_flash.ld
 AFLAGS	= $(MCFLAGS) 
 #-mapcs-float use float regs. small increase in code size
-LDFLAGS	 = -T stm32_flash.ld --library-path=/Volumes/disk0s3/opt/local/lib/gcc/arm-elf/4.6.1/thumb  --library-path=/Volumes/disk0s3/opt/local/arm-elf/lib/thumb   -Map=$(TARGET).map --relax --cref -u Reset_Handler 
-#LDFLAGS	= $(MCFLAGS) -T stm32_flash.ld 
-#--library-path=/usr/local/arm/lib/gcc/arm-elf/4.1.1/
-#LDFLAGS =  -Wl -Map=$(TARGET).map --cref -L/Volumes/disk0s3/opt/local/lib/gcc/arm-elf/4.6.1/thumb -Tstm32_flash.ld
 
 STM32_USB_OTG_SRC = ../../Libraries/STM32_USB_OTG_Driver/src/usb_dcd_int.c \
 	../../Libraries/STM32_USB_OTG_Driver/src/usb_core.c \
@@ -68,19 +65,13 @@ OBJDIR = .
 OBJ = $(SRC:%.c=$(OBJDIR)/%.o) 
 OBJ += Startup.o
 
+all: $(TARGET)
 
-all: $(TARGET).elf $(TARGET).hex
+$(TARGET): $(EXECUTABLE)
+	$(CP) -O ihex $^ $@
 
-
-$(TARGET).elf: $(OBJ)
-	$(LD) $(LDFLAGS) -o $@ $^ $(LIBS)
-
-$(TARGET).hex: $(TARGET).elf
-	$(BIN) $< $@
-
-Startup.o: $(STARTUP)
-	@ echo "...assembling"
-	$(AS) $(AFLAGS) $(STARTUP) -o Startup.o > Startup.lst
+$(EXECUTABLE): $(SRC) $(STARTUP)
+	$(CC) $(CFLAGS) $^ -o $@
 
 clean:
 	rm -f Startup.lst  $(TARGET)  $(TARGET).lst $(OBJ) $(AUTOGEN)  $(TARGET).out  $(TARGET).hex  $(TARGET).map \
