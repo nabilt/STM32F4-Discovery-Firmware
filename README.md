@@ -34,6 +34,10 @@ Peripheral Examples
 * SysTick				
 * TIM_TimeBase
 
+Instructions
+____________
+<http://www.nabiltewolde.com/2011/10/using-stm32f4-discovery-board-in-osx.html>
+
 Usage
 -----
     git clone https://github.com/nabilt/STM32F4-Discovery-Firmware.git
