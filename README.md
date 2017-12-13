@@ -3,7 +3,7 @@ STM32F4 Discovery Demo Firmware for arm-none-eabi-gcc
 
 * Author:    Nabil Tewolde (<nabil.tewolde@gmail.com>)
 * Version:   0.0.1
-* Website:   <http://www.nabiltewolde.com/search/label/STM32F4/>
+* Website:   <https://nabil.me/category/stm32f4/>
 * GitHub:    <https://github.com/nabilt/STM32F4-Discovery-Firmware>
 
 
@@ -36,7 +36,7 @@ Peripheral Examples
 
 Instructions
 ____________
-<http://www.nabiltewolde.com/2011/10/using-stm32f4-discovery-board-in-osx.html>
+<https://nabil.me/2011/10/30/using-the-stm32f4-discovery-board-in-osx-lion/>
 
 Usage
 -----
