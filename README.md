@@ -41,7 +41,7 @@ ____________
 Usage
 -----
     git clone https://github.com/nabilt/STM32F4-Discovery-Firmware.git
-    cd STM32F4-Discovery_FW_V1.0.1/Project/IO_Toggle
+    cd STM32F4-Discovery-Firmware/Project/IO_Toggle
     make && make program
     openocd -f ../../openocd_config/openocd.cfg -f ../../openocd_config/stm32f4x.cfg
 
